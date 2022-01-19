@@ -426,6 +426,7 @@ function lightboxModal() {
           case "ArrowLeft":
             newDataIndex--;
             lightbox.removeChild(newMedia);
+            // Appel d'une boucle sur tous les médias du photographe de la page afin de trouver le média qui correspond au nouveau data-index
             for (let index = 0; index < media.length; index++) {
               const element = media[index];
               const minusOne = media[0].getAttribute("data-index") - 1;
@@ -434,19 +435,17 @@ function lightboxModal() {
                 // Si ce média possède une source (est donc est une balise img)
                 if (element.src) {
                   // Je créé une nouvelle balise img à laquelle j'ajoute les informations du nouveau média avant de l'insérer dans le DOM
-                  createImg(element, lightbox);
+                  newMedia = createImg(element, lightbox);
                 } else {
                   // Si ce média ne possède pas de source, dans ce cas c'est une balise vidéo
                   // Je récupère les informations et la balise source que je passe dans des nouvelles balises crées avant de l'injecter dans le DOM
-                  createVid(element, lightbox);
+                  newMedia = createVid(element, lightbox);
                 }
                 break;
               } else if (newDataIndex == minusOne) {
-                newDataIndex =
-                  media[media.length - 1].getAttribute("data-index");
+                newDataIndex = media[media.length - 1].getAttribute("data-index");
               }
             }
-            // ------------
             break;
           case "ArrowRight":
             newDataIndex++;
