@@ -303,8 +303,11 @@ function createArrows(lightbox, newMedia) {
   lightbox.appendChild(leftArrow);
   lightbox.appendChild(rightArrow);
   lightbox.appendChild(exit);
+  // Création des events listeners pour gérer la navigation au clic sur les icones fléchées ainsi que la croix pour fermer la modale
   leftArrow.addEventListener('click', () => {
     newDataIndex--;
+    lightbox = document.querySelector('#lightbox');
+    newMedia = lightbox.querySelector('.media');
     lightbox.removeChild(newMedia);
     // Appel d'une boucle sur tous les médias du photographe de la page afin de trouver le média qui correspond au nouveau data-index
     for (let index = 0; index < media.length; index++) {
@@ -329,6 +332,8 @@ function createArrows(lightbox, newMedia) {
   });
   rightArrow.addEventListener('click', () => {
     newDataIndex++;
+    lightbox = document.querySelector('#lightbox');
+    newMedia = lightbox.querySelector('.media');
     lightbox.removeChild(newMedia);
     // Appel d'une boucle sur tous les médias du photographe de la page afin de trouver le média qui correspond au nouveau data-index
     for (let index = 0; index < media.length; index++) {
@@ -480,7 +485,7 @@ function lightboxModal() {
     let element = media[i];
     // Ajout d'un event listener clic sur chaque média et création de la lightbox
     element.addEventListener('click', () => {
-      let createBox = createLightbox()
+      let createBox = createLightbox();
       let newMedia;
       if (element.src) {
         // Si le média cliqué possède un attribut src, c'est une balise img. Je créé une nouvelle balise img à laquelle je passe les informations du média cliqué pour afficher le média correct grace à l'attribut data-index
