@@ -466,7 +466,7 @@ window.addEventListener('keydown', (e) => {
   } else {
     if (element.nodeName == 'IMG' || element.nodeName == 'VIDEO') {
       if (key == ' ' || key == 'Enter') {
-        createBox = createLightbox();
+        let createBox = createLightbox();
         createArrows(createBox);
         newMedia = createModal(element, createBox);
       }
@@ -480,120 +480,17 @@ function lightboxModal() {
     let element = media[i];
     // Ajout d'un event listener clic sur chaque média et création de la lightbox
     element.addEventListener('click', () => {
-      const lightbox = createLightbox()
-      // const lightbox = document.createElement('div');
-      // lightbox.id = 'lightbox';
-      // document.body.appendChild(lightbox);
-      // document.body.style.overflow = 'hidden';
-      // document.body.style.margin = 'initial';
-      // document.body.children.main.setAttribute('aria-hidden', 'true');
-      // document.body.removeAttribute('aria-current', 'page');
-      // lightbox.setAttribute('aria-current', 'page');
+      let createBox = createLightbox()
       let newMedia;
       if (element.src) {
         // Si le média cliqué possède un attribut src, c'est une balise img. Je créé une nouvelle balise img à laquelle je passe les informations du média cliqué pour afficher le média correct grace à l'attribut data-index
-        newMedia = createImg(element, lightbox);
+        newMedia = createImg(element, createBox);
       } else {
         // Si le média cliqué ne possède pas d'attribut src, c'est une vidéo. Je créé une nouvelle balise vidéo et source auxquelles je passe les informations du média cliqué pour afficher le média correct grace à l'attribut data-index
-        newMedia = createVid(element, lightbox);
+        newMedia = createVid(element, createBox);
       }
       // Ajout des icones fléchées et de la croix sur le diaporama
-      createArrows(lightbox, newMedia);
-      // const leftArrow = document.createElement('i');
-      // leftArrow.classList.add('fas', 'fa-chevron-left');
-      // leftArrow.setAttribute('aria-label', 'previous');
-      // leftArrow.setAttribute('role', 'Previous image');
-      // const rightArrow = document.createElement('i');
-      // rightArrow.classList.add('fas', 'fa-chevron-right');
-      // rightArrow.setAttribute('aria-label', 'next');
-      // rightArrow.setAttribute('role', 'Next image');
-      // const exit = document.createElement('i');
-      // exit.classList.add('fas', 'fa-times');
-      // exit.setAttribute('id', 'exit');
-      // exit.setAttribute('aria-label', 'close');
-      // exit.setAttribute('role', 'Exit closeup view');
-      // lightbox.appendChild(newMedia);
-      // lightbox.appendChild(leftArrow);
-      // lightbox.appendChild(rightArrow);
-      // lightbox.appendChild(exit);
-      // Au clic sur la croix, si l'élément était une balise vidéo, lui ajouter la balise source afin que la vidéo reste fonctionnelle au prochain clic
-      // ------------------------------------------------------------
-      // exit.addEventListener('click', () => {
-      //   if (!element.src) {
-      //     element.appendChild(newSource);
-      //   }
-      //   document.body.removeChild(lightbox);
-      //   document.body.style.overflow = 'initial';
-      //   document.body.style.margin = '0 auto';
-      //   lightbox.removeAttribute('aria-current', 'page');
-      //   document.body.children.main.setAttribute('aria-hidden', 'false');
-      //   document.body.setAttribute('aria-current', 'page');
-      // });
-      // Au clic sur la flèche gauche de la lightbox, l'attribut data-index de l'élément visible est décrémenté de 1, puis le média est retiré.
-      // ------------------------------------------------------------
-      // leftArrow.addEventListener('click', () => {
-      //   newDataIndex--;
-      //   lightbox.removeChild(newMedia);
-      //   // Appel d'une boucle sur tous les médias du photographe de la page afin de trouver le média qui correspond au nouveau data-index
-      //   for (let index = 0; index < media.length; index++) {
-      //     const element = media[index];
-      //     const minusOne = media[0].getAttribute('data-index') - 1;
-      //     // Si il y a un élément qui correspond au nouveau data-index (un média précédent dans la liste)
-      //     if (element.getAttribute('data-index') == newDataIndex) {
-      //       // Si ce média possède une source (est donc est une balise img)
-      //       if (element.src) {
-      //         // Je créé une nouvelle balise img à laquelle j'ajoute les informations du nouveau média avant de l'insérer dans le DOM
-      //         newMedia = createImg(element, lightbox);
-      //       } else {
-      //         // Si ce média ne possède pas de source, dans ce cas c'est une balise vidéo
-      //         // Je récupère les informations et la balise source que je passe dans des nouvelles balises crées avant de l'injecter dans le DOM
-      //         newMedia = createVid(element, lightbox);
-      //       }
-      //       break;
-      //     } else if (newDataIndex == minusOne) {
-      //       newDataIndex = media[media.length - 1].getAttribute('data-index');
-      //     }
-      //   }
-      // });
-      // Au clic sur la flèche droite de la lightbox, l'attribut data-index de l'élément visible est incrémenté de 1, puis le média est retiré.
-      // ------------------------------------------------------------
-      // rightArrow.addEventListener('click', () => {
-      //   newDataIndex++;
-      //   lightbox.removeChild(newMedia);
-      //   // Appel d'une boucle sur tous les médias du photographe de la page afin de trouver le média qui correspond au nouveau data-index
-      //   for (let index = 0; index < media.length; index++) {
-      //     const element = media[index];
-      //     const length = media[media.length - 1].getAttribute('data-index');
-      //     const parsed = parseInt(length, 10);
-      //     const One = 1;
-      //     const plusOne = One + parsed;
-      //     // Si il y a un élément qui correspond au nouveau data-index (un média suivant dans la liste)
-      //     if (element.getAttribute('data-index') == newDataIndex) {
-      //       // Si ce média possède une source (est donc est une balise img)
-      //       if (element.src) {
-      //         // Je créé une nouvelle balise img à laquelle j'ajoute les informations du nouveau média avant de l'insérer dans le DOM
-      //         newMedia = createImg(element, lightbox);
-      //       } else {
-      //         // Si ce média ne possède pas de source, dans ce cas c'est une balise vidéo
-      //         // Je récupère les informations et la balise source que je passe dans des nouvelles balises crées avant de l'injecter dans le DOM
-      //         newMedia = createVid(element, lightbox);
-      //       }
-      //       break;
-      //     } else if (newDataIndex == plusOne) {
-      //       newDataIndex = media[0].getAttribute('data-index');
-      //       if (element.src) {
-      //         // Je créé une nouvelle balise img à laquelle j'ajoute les informations du nouveau média avant de l'insérer dans le DOM
-      //         newMedia = createImg(element, lightbox);
-      //       } else {
-      //         // Si ce média ne possède pas de source, dans ce cas c'est une balise vidéo
-      //         // Je récupère les informations et la balise source que je passe dans des nouvelles balises crées avant de l'injecter dans le DOM
-      //         newMedia = createVid(element, lightbox);
-      //       }
-      //       break;
-      //     }
-      //   }
-      // });
-      // -------------------------------------------------
+      createArrows(createBox, newMedia);
     });
   }
 }
