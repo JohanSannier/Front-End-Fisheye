@@ -11,6 +11,7 @@ function displayModal() {
   const form = document.createElement('form');
   form.setAttribute('action', '');
   form.setAttribute('method', 'post');
+  form.setAttribute('id', 'form_data')
   modal.appendChild(form);
   const firstNameLabel = document.createElement('label');
   firstNameLabel.setAttribute('for', 'firstname');

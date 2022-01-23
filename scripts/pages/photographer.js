@@ -381,6 +381,7 @@ function createArrows(lightbox, newMedia) {
 // Event listener pour gérer la navigation du diaporama au clavier, il écoute les touches pressées et crééra le diaporama si celui si n'est pas ouvert. Si le diaporama est ouvert, il gèrera la navigation au clavier en fonction des touches pressées par l'utilisateur
 window.addEventListener('keydown', (e) => {
   const lightbox = document.querySelector('#lightbox');
+  const form = document.querySelector('#form_data')
   const element = e.target;
   const key = e.key;
   if (lightbox != null) {
@@ -475,6 +476,11 @@ window.addEventListener('keydown', (e) => {
         createArrows(createBox);
         newMedia = createModal(element, createBox);
       }
+    }
+  }
+  if (form != null) {
+    if (e.key == "Escape") {
+      closeModal()
     }
   }
 });
